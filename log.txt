@@ -1,0 +1,55 @@
+commit 00ac7f8b531a2815098ed81552366c6a4e6ae8f4
+Author: Shaggae <t.umathorn@gmail.com>
+:
+commit 13b3ad5b6e478468fb19467315a485e1ee7497f3 (HEAD -> main)
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 4 17:00:37 2026 +0800
+
+    fun conditions
+
+commit 00ac7f8b531a2815098ed81552366c6a4e6ae8f4
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 4 16:58:28 2026 +0800
+
+    interactive profile creator
+
+commit 68d77097e1ed0a195cbee324fa689ca29909a5a1
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 4 16:56:44 2026 +0800
+
+    follower growth tracker
+
+commit 35b64f7b131566dafaa781f46a3e88ba1a99ce48
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 4 16:54:55 2026 +0800
+
+:
+commit 13b3ad5b6e478468fb19467315a485e1ee7497f3 (HEAD -> main)
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 4 17:00:37 2026 +0800
+
+    fun conditions
+
+commit 00ac7f8b531a2815098ed81552366c6a4e6ae8f4
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 4 16:58:28 2026 +0800
+
+    interactive profile creator
+
+commit 68d77097e1ed0a195cbee324fa689ca29909a5a1
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 4 16:56:44 2026 +0800
+
+    follower growth tracker
+
+commit 35b64f7b131566dafaa781f46a3e88ba1a99ce48
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 4 16:54:55 2026 +0800
+
+    Profile
+
+commit 0811435ff57247ba6895396c186a866e52fec6f1
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 4 16:42:41 2026 +0800
+
+    First Post
