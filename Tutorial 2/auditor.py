@@ -1,0 +1,4 @@
+inventory = 0
+
+
+
