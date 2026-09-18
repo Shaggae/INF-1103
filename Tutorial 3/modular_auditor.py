@@ -19,3 +19,5 @@ def get_valid_input():
 
     return value
 
+def process_delivery(current_total, new_value):
+    return current_total + new_value
