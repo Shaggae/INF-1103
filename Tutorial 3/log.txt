@@ -1,0 +1,35 @@
+commit a6dfbaa511bde854eba6c3e30b99d51ad74914ec (HEAD -> main)
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 18 15:47:26 2026 +0800
+
+    dockerfile
+
+commit b063faf883998e56b1797201adb1b9954cf32fba
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 18 15:39:12 2026 +0800
+
+    main function
+
+commit dd18c2b8b9860530f2056944f9dc6827ff40a815
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 18 15:32:09 2026 +0800
+
+    calculate_tax function
+
+commit 4393d5ea4e14ed1cb5490aabb071ce9c4607174c
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 18 15:30:41 2026 +0800
+
+    generate_report function
+
+commit ab98424acacb9c0bee74fc3e2cd193a9eaa2a6da
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 18 15:28:37 2026 +0800
+
+    process_delivery function
+
+commit 8acbe7e9c158063bf67a745043398a119827d29f (origin/main)
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 18 15:26:33 2026 +0800
+
+    get_valid_input function

@@ -1,7 +1,7 @@
 def get_valid_input():
     stock = input("Enter stock quantity (or 'quit' to finish): ").strip()
 
-    if stock.lower() != "quit":
+    if stock.lower() == "quit":
         return "quit"
     
     try:
