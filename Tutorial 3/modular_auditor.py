@@ -19,6 +19,9 @@ def get_valid_input():
 def process_delivery(current_total, new_value):
     return current_total + new_value
 
+def calculate_tax(amount):
+    return amount * 0.10
+
 def generate_report(total_units, failed_attempts):
     print("\n----- Audit Report -----")
     print(f"Total Deliveries Processed: {total_units}")
