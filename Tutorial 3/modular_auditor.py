@@ -1,6 +1,3 @@
-inventory = 0
-rejected = 0
-
 def get_valid_input():
     stock = input("Enter stock quantity (or 'quit' to finish): ").strip()
 
@@ -21,3 +18,10 @@ def get_valid_input():
 
 def process_delivery(current_total, new_value):
     return current_total + new_value
+
+def generate_report(total_units, failed_attempts):
+    print("\n----- Audit Report -----")
+    print(f"Total Deliveries Processed: {total_units}")
+    print(f"Number of Failed/Rejected Entries: {failed_attempts}")
+    print("-------------------------")
+
