@@ -57,3 +57,18 @@ def add_item(inventory, product_name, quantity):
     inventory.append(new_item)
     return new_item
 
+def main():
+    inventory = load_inventory()
+    display_inventory(inventory)
+
+    product_name, quantity = get_new_item()
+    new_item = add_item(inventory, product_name, quantity)
+    
+    print(f'\nNew item added:\n{new_item["id"]}, {new_item["product"]}, {new_item["quantity"]}\n')
+    
+    save_inventory(inventory)
+    print(f"Inventory successfully saved to {INVENTORY_FILE}")
+
+
+if __name__ == "__main__":
+    main()
