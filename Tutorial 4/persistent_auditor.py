@@ -37,3 +37,17 @@ def display_inventory(inventory):
     for item in inventory:
         print(f'{item["id"]}, {item["product"]}, {item["quantity"]}')
     print()
+
+def get_new_item():
+    product_name = input("Enter product name: ").strip()
+
+    while True:
+        quantity_input = input("Enter quantity: ").strip()
+        try:
+            quantity = int(quantity_input)
+            if quantity > 0:
+                return product_name, quantity
+            print("Please enter a positive quantity.")
+        except ValueError:
+            print("Please enter a whole number for quantity.")
+
