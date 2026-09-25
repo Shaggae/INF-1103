@@ -3,9 +3,7 @@ import csv
 
 INVENTORY_FILE = "inventory.txt"
 
-def load_inventory(filename):
-    filename = INVENTORY_FILE
-
+def load_inventory(filename=INVENTORY_FILE):
     if not os.path.exists(filename):
         print(f"'{filename}' not found — starting with no existing orders.")
         return []
@@ -27,4 +25,10 @@ def load_inventory(filename):
     except (ValueError, IndexError):
         print(f"'{filename}' contained invalid data — starting fresh.")
         return []
+
+def save_inventory(orders, filename=INVENTORY_FILE):
+    with open(filename, "w", newline="") as f:
+        writer = csv.writer(f)
+        for order in orders:
+            writer.writerow([order["id"], f' {order["product"]}', f' {order["quantity"]}'])
 
