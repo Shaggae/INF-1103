@@ -51,3 +51,9 @@ def get_new_item():
         except ValueError:
             print("Please enter a whole number for quantity.")
 
+def add_item(inventory, product_name, quantity):
+    next_id = inventory[-1]["id"] + 1 if inventory else 1001
+    new_item = {"id": next_id, "product": product_name, "quantity": quantity}
+    inventory.append(new_item)
+    return new_item
+
