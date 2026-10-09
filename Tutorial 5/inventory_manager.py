@@ -20,6 +20,17 @@ def load_inventory(filename=INVENTORY_FILE):
     return []
 
 
+def save_inventory(inventory, filename=INVENTORY_FILE):
+    """Write the inventory list to a JSON file. Returns True on success."""
+    try:
+        with open(filename, "w") as f:
+            json.dump(inventory, f, indent=4)
+        return True
+    except OSError as err:
+        print(f"Could not save inventory: {err}")
+        return False
+
+    
 def add_product(inventory, product_id, name, price, stock):
     """Add a new product. Returns False if the ID already exists."""
     if search_product(inventory, product_id) is not None:
@@ -80,6 +91,7 @@ def show_menu():
     print("2. Add Product")
     print("3. Update Stock")
     print("4. Search Product")
+    print("5. Save Inventory")
     print("6. Exit")
     print("----------------------------")
 
@@ -137,7 +149,15 @@ def main():
                 print(f"Stock: {product['stock']}")
                 print("-" * 48)
 
+        elif choice == "5":
+            print("Saving inventory...")
+            if save_inventory(inventory):
+                print(f"Inventory saved successfully to {INVENTORY_FILE}.")
+
         elif choice == "6":
+            print("Saving inventory before exit...")
+            if save_inventory(inventory):
+                print("Inventory saved successfully.")
             print("Thank you for using Inventory Management System.")
             print("Program terminated.")
             break
