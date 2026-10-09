@@ -1,0 +1,41 @@
+commit f837187516bb657cb2de41a9b635cef43a59f41a (HEAD -> main, origin/main)
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 25 14:19:43 2026 +0800
+
+    main()
+
+commit a8f3b4b70dc3915a721ae08ad2746c1c27f92fc5
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 25 14:16:12 2026 +0800
+
+    add_item()
+
+commit e1e9ee762b8fe983d3bccd09603ea2b0e70091c0
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 25 14:15:13 2026 +0800
+
+    get_new_item()
+
+commit 4d337209824d3bc51714259a83264e945a35f7b7
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 25 14:14:04 2026 +0800
+
+    display_inventory()
+
+commit a8298c9787bf06228c349f952d7884f4c30bcde3
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 25 13:54:09 2026 +0800
+
+    save_invetory()
+
+commit ecbb413293a822bb648248ad630e8ce339efb7ae
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 25 13:43:38 2026 +0800
+
+    load_inventory()
+
+commit 90339885927fa84d517efcec60ede574bf81809a
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Sep 25 13:42:45 2026 +0800
+
+    load_inventory()
