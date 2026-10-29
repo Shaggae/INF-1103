@@ -1,0 +1,23 @@
+commit 2c99a15302b32e4dc1edc42be2c0bf6dfef32775 (HEAD -> main, origin/main)
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Oct 9 14:47:08 2026 +0800
+
+    json with data
+
+commit cc73ffe31440869ffe72269ec3e936ad3fd8e789
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Oct 9 14:30:41 2026 +0800
+
+    added save_inventory() and the Save and Exit
+
+commit 5cbc6ddccb915978a5b5af209656c07233642db6
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Oct 9 14:19:40 2026 +0800
+
+    Added load_inventory() and the menu
+
+commit 89d9ffebcb3f00b5e9ba6b94d66f908d6e70e1d5
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Oct 9 14:05:48 2026 +0800
+
+    Added dictionary, three products, CRUD functions and inventory.json file
