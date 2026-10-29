@@ -1,0 +1,70 @@
+class Product:
+    """Represents and manages a single product.
+
+    Responsibility (SRP): store product information and manage its own state.
+    It does not load/save files, show menus, or ask the user for input.
+    """
+
+    def __init__(self, product_id, name, price, stock):
+        if price < 0:
+            raise ValueError("Price cannot be negative.")
+        if stock < 0:
+            raise ValueError("Stock cannot be negative.")
+        self.__product_id = product_id
+        self.__name = name
+        self.__price = price
+        self.__stock = stock
+
+    # ---- read-only access to private attributes ----
+    @property
+    def product_id(self):
+        return self.__product_id
+
+    @property
+    def name(self):
+        return self.__name
+
+    @property
+    def price(self):
+        return self.__price
+
+    @property
+    def stock(self):
+        return self.__stock
+
+    # ---- behaviour ----
+    def update_stock(self, quantity):
+        """Set the stock level. Rejects negative quantities."""
+        if quantity < 0:
+            raise ValueError("Stock cannot be negative.")
+        self.__stock = quantity
+
+    def display_information(self):
+        """Print this product's full details."""
+        print("-" * 48)
+        print(f"ID: {self.__product_id}")
+        print(f"Name: {self.__name}")
+        print(f"Price: ${self.__price:.2f}")
+        print(f"Stock: {self.__stock}")
+        print("-" * 48)
+
+    # ---- conversion helpers (used for JSON persistence by the caller) ----
+    def to_dict(self):
+        """Return this product as a plain dictionary."""
+        return {
+            "id": self.__product_id,
+            "name": self.__name,
+            "price": self.__price,
+            "stock": self.__stock,
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        """Build a Product from a dictionary (e.g. one loaded from JSON)."""
+        return cls(data["id"], data["name"], data["price"], data["stock"])
+
+    def __str__(self):
+        return (
+            f"ID: {self.__product_id} | Name: {self.__name} | "
+            f"Price: ${self.__price:.2f} | Stock: {self.__stock}"
+        )
