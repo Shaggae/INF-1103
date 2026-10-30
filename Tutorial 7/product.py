@@ -53,18 +53,16 @@ class Product:
 
     # ---- conversion helpers (used for JSON persistence by the caller) ----
     def to_dict(self):
-        """Return this product as a plain dictionary."""
+        """Return the common fields as a plain dictionary.
+
+        Subclasses extend this with their type identifier and extra fields.
+        """
         return {
             "id": self.__product_id,
             "name": self.__name,
             "price": self.__price,
             "stock": self.__stock,
         }
-
-    @classmethod
-    def from_dict(cls, data):
-        """Build a Product from a dictionary (e.g. one loaded from JSON)."""
-        return cls(data["id"], data["name"], data["price"], data["stock"])
 
     def __str__(self):
         return (

@@ -7,6 +7,8 @@ class DigitalProduct(Product):
     Adds one attribute to Product: download size in megabytes.
     """
 
+    PRODUCT_TYPE = "digital"
+
     def __init__(self, product_id, name, price, stock, download_size):
         super().__init__(product_id, name, price, stock)
         if download_size < 0:
@@ -22,3 +24,18 @@ class DigitalProduct(Product):
         """Common product info (from Product) plus the download size."""
         super().display_information()
         print(f"Download Size: {self.__download_size} MB")
+
+    def to_dict(self):
+        """Common fields (from Product) plus the type identifier and size."""
+        data = super().to_dict()
+        data["type"] = self.PRODUCT_TYPE
+        data["download_size"] = self.__download_size
+        return data
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(data["id"], data["name"], data["price"], data["stock"],
+                   data["download_size"])
+
+    def __str__(self):
+        return f"{super().__str__()} | Download Size: {self.__download_size} MB"

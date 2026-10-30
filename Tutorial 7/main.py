@@ -1,8 +1,10 @@
 import json
 import os
 
-from product import Product
 from inventory import Inventory
+from physical_product import PhysicalProduct
+from digital_product import DigitalProduct
+from product_factory import product_from_dict
 
 INVENTORY_FILE = "inventory.json"
 
@@ -28,8 +30,8 @@ def load_inventory(filename=INVENTORY_FILE):
     skipped = 0
     for item in data:
         try:
-            inventory.add_product(Product.from_dict(item))
-        except (KeyError, TypeError, ValueError):
+            inventory.add_product(product_from_dict(item))
+        except (KeyError, TypeError, ValueError, AttributeError):
             skipped += 1
     if skipped:
         print(f"Skipped {skipped} invalid product record(s).")
@@ -61,6 +63,16 @@ def read_number(prompt, cast):
         except ValueError:
             print("Invalid input. Please enter a number.")
 
+def read_product_type():
+    """Prompt until the user picks 1 (physical) or 2 (digital)."""
+    while True:
+        print("Product Type:")
+        print("1. Physical Product")
+        print("2. Digital Product")
+        choice = input("Select type: ").strip()
+        if choice in ("1", "2"):
+            return choice
+        print("Invalid type. Please enter 1 or 2.")
 
 def show_menu():
     print("\n----------- MENU -----------")
@@ -88,11 +100,17 @@ def main():
 
         elif choice == "2":
             print("Add New Product")
+            product_type = read_product_type()
             product_id = input("Product ID: ").strip()
             name = input("Product Name: ").strip()
             price = read_number("Price: ", float)
             stock = read_number("Stock Quantity: ", int)
-            product = Product(product_id, name, price, stock)
+            if product_type == "1":
+                weight = read_number("Weight (kg): ", float)
+                product = PhysicalProduct(product_id, name, price, stock, weight)
+            else:
+                size = read_number("Download Size (MB): ", float)
+                product = DigitalProduct(product_id, name, price, stock, size)
             if inventory.add_product(product):
                 print("Product added successfully!")
             else:
