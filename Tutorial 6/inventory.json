@@ -16,5 +16,11 @@
         "name": "Keyboard",
         "price": 79.9,
         "stock": 25
+    },
+    {
+        "id": "P101",
+        "name": "computer",
+        "price": 991.0,
+        "stock": 22
     }
 ]

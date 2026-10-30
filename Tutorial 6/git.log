@@ -1,0 +1,29 @@
+commit cd32e0954b125b5e9e9076001396ae6c1f51b5fd (HEAD -> main, origin/main)
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Oct 30 00:00:04 2026 +0800
+
+    Complete OOP inventory system
+
+commit 97ea81b876873da5d6e88abeebdb64e2ff1c5c26
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Thu Oct 29 23:55:55 2026 +0800
+
+    Refactor inventory system to use Product and Inventory classes
+
+commit 0f9709789702468c3ca7e6d1400b9f86a10e84e3
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Thu Oct 29 23:55:17 2026 +0800
+
+    Create Inventory class to manage a collection of products
+
+commit 22686c7eef01dd1e5caff8327552f809266e8e37
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Thu Oct 29 23:54:20 2026 +0800
+
+    Create Product class with attributes
+
+commit ecd0f17f08fb6120dca645a7c5c272c6662233d4
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Thu Oct 29 23:53:51 2026 +0800
+
+    Add Week 5 procedural inventory system as baseline
