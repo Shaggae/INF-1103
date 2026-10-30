@@ -12,7 +12,7 @@ class PhysicalProduct(Product, CanBeShipped):
     CanBeShipped interface. Adds one attribute: weight in kilograms.
     """
     PRODUCT_TYPE = "physical"
-    
+
     def __init__(self, product_id, name, price, stock, weight):
         super().__init__(product_id, name, price, stock)
         if weight < 0:
@@ -28,6 +28,9 @@ class PhysicalProduct(Product, CanBeShipped):
         """Common product info (from Product) plus the weight."""
         super().display_information()
         print(f"Weight: {self.__weight} kg")
+
+    def get_fulfilment_info(self):
+        return "This product requires physical shipping."
 
     def to_dict(self):
         """Common fields (from Product) plus the type identifier and weight."""

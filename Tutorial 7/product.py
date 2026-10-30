@@ -1,5 +1,10 @@
-class Product:
-    """Represents and manages a single product.
+from abc import ABC, abstractmethod
+
+class Product(ABC):
+    """Abstract base class for every product.
+
+    A product must be either physical or digital, so Product itself cannot be
+    instantiated. Subclasses must implement get_fulfilment_info().
 
     Responsibility (SRP): store product information and manage its own state.
     It does not load/save files, show menus, or ask the user for input.
@@ -50,6 +55,11 @@ class Product:
         print(f"Name: {self.__name}")
         print(f"Price: ${self.__price:.2f}")
         print(f"Stock: {self.__stock}")
+
+    @abstractmethod
+    def get_fulfilment_info(self):
+        """Return a message describing how this product is fulfilled."""
+        ...
 
     # ---- conversion helpers (used for JSON persistence by the caller) ----
     def to_dict(self):

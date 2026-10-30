@@ -140,6 +140,7 @@ def main():
                 print("Product Found")
                 print("-" * 48)
                 product.display_information()
+                print(f"Fulfilment: {product.get_fulfilment_info()}")
                 print("-" * 48)
 
         elif choice == "5":
