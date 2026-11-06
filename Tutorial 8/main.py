@@ -1,16 +1,19 @@
 import json
 import os
+from typing import Callable, TypeVar
 
-from inventory import Inventory
+from product import Product
 from physical_product import PhysicalProduct
 from digital_product import DigitalProduct
 from product_factory import product_from_dict
 from supplier import Supplier
+from inventory import Inventory
 
-INVENTORY_FILE = "inventory.json"
+INVENTORY_FILE: str = "inventory.json"
 
+Number = TypeVar("Number", int, float)  # read_number returns what `cast` builds
 
-def load_inventory(filename=INVENTORY_FILE):
+def load_inventory(filename: str = INVENTORY_FILE) -> Inventory:
     """Load products from a JSON file into an Inventory object.
 
     Returns an empty Inventory if the file is absent or unreadable.
@@ -41,7 +44,7 @@ def load_inventory(filename=INVENTORY_FILE):
     return inventory
 
 
-def save_inventory(inventory, filename=INVENTORY_FILE):
+def save_inventory(inventory: Inventory, filename: str = INVENTORY_FILE) -> bool:
     """Write the inventory's products to a JSON file. Returns True on success."""
     data = [product.to_dict() for product in inventory.products]
     try:
@@ -53,7 +56,7 @@ def save_inventory(inventory, filename=INVENTORY_FILE):
         return False
 
 
-def read_number(prompt, cast):
+def read_number(prompt: str, cast: Callable[[str], Number]) -> Number:
     """Prompt until the user enters a valid non-negative number."""
     while True:
         try:
@@ -88,7 +91,7 @@ def read_supplier(inventory: Inventory) -> Supplier:
         except ValueError as err:
             print(f"Invalid supplier: {err}")
 
-def read_product_type():
+def read_product_type() -> str:
     """Prompt until the user picks 1 (physical) or 2 (digital)."""
     while True:
         print("Product Type:")
@@ -99,7 +102,7 @@ def read_product_type():
             return choice
         print("Invalid type. Please enter 1 or 2.")
 
-def show_menu():
+def show_menu() -> None:
     print("\n----------- MENU -----------")
     print("1. Display All Products")
     print("2. Add Product")
@@ -110,7 +113,7 @@ def show_menu():
     print("----------------------------")
 
 
-def main():
+def main() -> None:
     print("=" * 40)
     print("INVENTORY MANAGEMENT SYSTEM")
     print("=" * 40)
@@ -131,15 +134,16 @@ def main():
             price = read_number("Price: ", float)
             stock = read_number("Stock Quantity: ", int)
             supplier = read_supplier(inventory)
+            new_product: Product  # either subclass is fine: both are Products
             if product_type == "1":
                 weight = read_number("Weight (kg): ", float)
-                product = PhysicalProduct(product_id, name, price, stock,
-                                          supplier, weight)
+                new_product = PhysicalProduct(product_id, name, price, stock,
+                                              supplier, weight)
             else:
                 size = read_number("Download Size (MB): ", float)
-                product = DigitalProduct(product_id, name, price, stock,
-                                         supplier, size)
-            if inventory.add_product(product):
+                new_product = DigitalProduct(product_id, name, price, stock,
+                                             supplier, size)
+            if inventory.add_product(new_product):
                 print("Product added successfully!")
             else:
                 print("A product with that ID already exists.")
