@@ -5,6 +5,7 @@ from inventory import Inventory
 from physical_product import PhysicalProduct
 from digital_product import DigitalProduct
 from product_factory import product_from_dict
+from supplier import Supplier
 
 INVENTORY_FILE = "inventory.json"
 
@@ -28,9 +29,10 @@ def load_inventory(filename=INVENTORY_FILE):
         return inventory
 
     skipped = 0
+    suppliers: dict[str, Supplier] = {}  # one Supplier object per supplier ID
     for item in data:
         try:
-            inventory.add_product(product_from_dict(item))
+            inventory.add_product(product_from_dict(item, suppliers))
         except (KeyError, TypeError, ValueError, AttributeError):
             skipped += 1
     if skipped:
@@ -62,6 +64,29 @@ def read_number(prompt, cast):
             return value
         except ValueError:
             print("Invalid input. Please enter a number.")
+
+def find_supplier(inventory: Inventory, supplier_id: str) -> Supplier | None:
+    """Return an existing Supplier with this ID from the inventory's products."""
+    for product in inventory.get_products():
+        if product.supplier.supplier_id.upper() == supplier_id.upper():
+            return product.supplier
+    return None
+
+
+def read_supplier(inventory: Inventory) -> Supplier:
+    """Reuse a known supplier by ID, or create a new independent Supplier."""
+    while True:
+        supplier_id = input("Supplier ID: ").strip()
+        supplier = find_supplier(inventory, supplier_id)
+        if supplier is not None:
+            print(f"Using existing supplier: {supplier.name}")
+            return supplier
+        name = input("Supplier Name: ").strip()
+        email = input("Supplier Contact Email: ").strip()
+        try:
+            return Supplier(supplier_id, name, email)
+        except ValueError as err:
+            print(f"Invalid supplier: {err}")
 
 def read_product_type():
     """Prompt until the user picks 1 (physical) or 2 (digital)."""
@@ -105,12 +130,15 @@ def main():
             name = input("Product Name: ").strip()
             price = read_number("Price: ", float)
             stock = read_number("Stock Quantity: ", int)
+            supplier = read_supplier(inventory)
             if product_type == "1":
                 weight = read_number("Weight (kg): ", float)
-                product = PhysicalProduct(product_id, name, price, stock, weight)
+                product = PhysicalProduct(product_id, name, price, stock,
+                                          supplier, weight)
             else:
                 size = read_number("Download Size (MB): ", float)
-                product = DigitalProduct(product_id, name, price, stock, size)
+                product = DigitalProduct(product_id, name, price, stock,
+                                         supplier, size)
             if inventory.add_product(product):
                 print("Product added successfully!")
             else:

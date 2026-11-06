@@ -11,13 +11,16 @@ from physical_product import PhysicalProduct
 from digital_product import DigitalProduct
 from can_be_shipped import CanBeShipped
 from inventory import Inventory
+from supplier import Supplier
 from main import load_inventory, save_inventory
+
+SUPPLIER = Supplier("S001", "Acme Supplies", "sales@acme.example")
 
 
 class TestProducts(unittest.TestCase):
     def setUp(self):
-        self.guitar = PhysicalProduct("P001", "Guitar", 450.0, 5, 3.2)
-        self.os = DigitalProduct("D001", "Operating System", 99.0, 100, 4096)
+        self.guitar = PhysicalProduct("P001", "Guitar", 450.0, 5, SUPPLIER, 3.2)
+        self.os = DigitalProduct("D001", "Operating System", 99.0, 100, SUPPLIER, 4096)
 
     def test_physical_stores_weight(self):
         self.assertEqual(self.guitar.weight, 3.2)
@@ -51,8 +54,8 @@ class TestProducts(unittest.TestCase):
             Product("X", "Nope", 1.0, 1)
 
     def test_physical_shipping_cost_varies_with_weight(self):
-        light = PhysicalProduct("P2", "Light", 1.0, 1, 0.5)
-        heavy = PhysicalProduct("P3", "Heavy", 1.0, 1, 10)
+        light = PhysicalProduct("P2", "Light", 1.0, 1, SUPPLIER, 0.5)
+        heavy = PhysicalProduct("P3", "Heavy", 1.0, 1, SUPPLIER, 10)
         self.assertEqual(light.calculate_shipping_cost(), 6.0)
         self.assertEqual(heavy.calculate_shipping_cost(), 25.0)
 
@@ -67,9 +70,9 @@ class TestProducts(unittest.TestCase):
 
     def test_negative_values_rejected(self):
         with self.assertRaises(ValueError):
-            PhysicalProduct("P", "x", 1.0, 1, -1)
+            PhysicalProduct("P", "x", 1.0, 1, SUPPLIER, -1)
         with self.assertRaises(ValueError):
-            DigitalProduct("D", "x", 1.0, 1, -1)
+            DigitalProduct("D", "x", 1.0, 1, SUPPLIER, -1)
         with self.assertRaises(ValueError):
             self.guitar.update_stock(-5)
 
@@ -77,12 +80,12 @@ class TestProducts(unittest.TestCase):
 class TestInventory(unittest.TestCase):
     def setUp(self):
         self.inv = Inventory()
-        self.inv.add_product(PhysicalProduct("P001", "Guitar", 450.0, 5, 3.2))
-        self.inv.add_product(DigitalProduct("D001", "OS", 99.0, 100, 4096))
+        self.inv.add_product(PhysicalProduct("P001", "Guitar", 450.0, 5, SUPPLIER, 3.2))
+        self.inv.add_product(DigitalProduct("D001", "OS", 99.0, 100, SUPPLIER, 4096))
 
     def test_add_duplicate_rejected(self):
         self.assertFalse(
-            self.inv.add_product(DigitalProduct("d001", "Dup", 1.0, 1, 1)))
+            self.inv.add_product(DigitalProduct("d001", "Dup", 1.0, 1, SUPPLIER, 1)))
 
     def test_search_case_insensitive(self):
         self.assertEqual(self.inv.search_product("p001").name, "Guitar")
@@ -97,8 +100,8 @@ class TestInventory(unittest.TestCase):
 class TestPersistence(unittest.TestCase):
     def test_round_trip_preserves_types_and_attributes(self):
         inv = Inventory()
-        inv.add_product(PhysicalProduct("P001", "Guitar", 450.0, 5, 3.2))
-        inv.add_product(DigitalProduct("D001", "OS", 99.0, 100, 4096.0))
+        inv.add_product(PhysicalProduct("P001", "Guitar", 450.0, 5, SUPPLIER, 3.2))
+        inv.add_product(DigitalProduct("D001", "OS", 99.0, 100, SUPPLIER, 4096.0))
         with tempfile.TemporaryDirectory() as tmp:
             path = os.path.join(tmp, "inv.json")
             self.assertTrue(save_inventory(inv, path))
