@@ -43,7 +43,7 @@ def load_inventory(filename=INVENTORY_FILE):
 
 def save_inventory(inventory, filename=INVENTORY_FILE):
     """Write the inventory's products to a JSON file. Returns True on success."""
-    data = [product.to_dict() for product in inventory.get_products()]
+    data = [product.to_dict() for product in inventory.products]
     try:
         with open(filename, "w") as f:
             json.dump(data, f, indent=4)
@@ -67,7 +67,7 @@ def read_number(prompt, cast):
 
 def find_supplier(inventory: Inventory, supplier_id: str) -> Supplier | None:
     """Return an existing Supplier with this ID from the inventory's products."""
-    for product in inventory.get_products():
+    for product in inventory.products:
         if product.supplier.supplier_id.upper() == supplier_id.upper():
             return product.supplier
     return None
@@ -147,7 +147,7 @@ def main():
         elif choice == "3":
             print("Update Stock")
             product_id = input("Enter Product ID: ").strip()
-            product = inventory.search_product(product_id)
+            product = inventory.find_product(product_id)
             if product is None:
                 print("Product not found.")
             else:
@@ -161,7 +161,7 @@ def main():
         elif choice == "4":
             print("Search Product")
             product_id = input("Enter Product ID: ").strip()
-            product = inventory.search_product(product_id)
+            product = inventory.find_product(product_id)
             if product is None:
                 print("Product not found.")
             else:

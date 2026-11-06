@@ -88,12 +88,19 @@ class TestInventory(unittest.TestCase):
             self.inv.add_product(DigitalProduct("d001", "Dup", 1.0, 1, SUPPLIER, 1)))
 
     def test_search_case_insensitive(self):
-        self.assertEqual(self.inv.search_product("p001").name, "Guitar")
-        self.assertIsNone(self.inv.search_product("ZZZ"))
+        self.assertEqual(self.inv.find_product("p001").name, "Guitar")
+        self.assertIsNone(self.inv.find_product("ZZZ"))
 
+    def test_remove_keeps_product_alive(self):
+        removed = self.inv.remove_product("p001")
+        self.assertEqual(removed.name, "Guitar")
+        self.assertIsNone(self.inv.find_product("P001"))
+        removed.update_stock(1)  # still a usable object
+        self.assertIsNone(self.inv.remove_product("P001"))
+        
     def test_update_stock(self):
         self.assertTrue(self.inv.update_stock("D001", 42))
-        self.assertEqual(self.inv.search_product("D001").stock, 42)
+        self.assertEqual(self.inv.find_product("D001").stock, 42)
         self.assertFalse(self.inv.update_stock("ZZZ", 1))
 
 
@@ -106,8 +113,8 @@ class TestPersistence(unittest.TestCase):
             path = os.path.join(tmp, "inv.json")
             self.assertTrue(save_inventory(inv, path))
             loaded = load_inventory(path)
-        guitar = loaded.search_product("P001")
-        os_ = loaded.search_product("D001")
+        guitar = loaded.find_product("P001")
+        os_ = loaded.find_product("D001")
         self.assertIsInstance(guitar, PhysicalProduct)
         self.assertEqual(guitar.weight, 3.2)
         self.assertIsInstance(os_, DigitalProduct)
@@ -119,7 +126,7 @@ class TestPersistence(unittest.TestCase):
             with open(path, "w") as f:
                 f.write('[{"id": "X", "name": "Old", "price": 1, "stock": 1}]')
             loaded = load_inventory(path)
-        self.assertEqual(loaded.get_products(), [])
+        self.assertEqual(loaded.products, [])
 
 
 if __name__ == "__main__":
