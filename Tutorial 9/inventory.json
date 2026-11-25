@@ -1,0 +1,54 @@
+[
+    {
+        "id": "P001",
+        "name": "Desk Lamp",
+        "price": 25.0,
+        "stock": 10,
+        "supplier": {
+            "supplier_id": "999",
+            "name": "john",
+            "contact_email": "john@gmail.com"
+        },
+        "type": "physical",
+        "weight": 0.0
+    },
+    {
+        "id": "D001",
+        "name": "Photo Editor",
+        "price": 49.9,
+        "stock": 100,
+        "supplier": {
+            "supplier_id": "999",
+            "name": "john",
+            "contact_email": "john@gmail.com"
+        },
+        "type": "digital",
+        "download_size": 0.0
+    },
+    {
+        "id": "P002",
+        "name": "Office Chair",
+        "price": 123.0,
+        "stock": 3,
+        "supplier": {
+            "supplier_id": "999",
+            "name": "john",
+            "contact_email": "john@gmail.com"
+        },
+        "type": "physical",
+        "weight": 0.0
+    },
+    {
+        "id": "P003",
+        "name": "Monitor Stand",
+        "price": 39.5,
+        "stock": 7,
+        "supplier": {
+            "supplier_id": "999",
+            "name": "john",
+            "contact_email": "john@gmail.com"
+        },
+        "type": "physical",
+        "weight": 0.0
+    }
+]

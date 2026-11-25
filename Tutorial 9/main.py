@@ -3,8 +3,10 @@ import os
 from typing import Callable, TypeVar
 
 from product_factory import ProductFactory, product_from_dict
+from product_loader import load_products
 from supplier import Supplier
 from inventory import Inventory
+from user_input import get_positive_float
 
 INVENTORY_FILE: str = "inventory.json"
 
@@ -28,6 +30,10 @@ def load_inventory(filename: str = INVENTORY_FILE) -> Inventory:
         print(f"Could not read {filename} ({err}). Starting empty.")
         return inventory
 
+    if not isinstance(data, list):
+        print(f"{filename} does not contain a list of products. Starting empty.")
+        return inventory
+    
     skipped = 0
     suppliers: dict[str, Supplier] = {}  # one Supplier object per supplier ID
     for item in data:
@@ -107,7 +113,8 @@ def show_menu() -> None:
     print("3. Update Stock")
     print("4. Search Product")
     print("5. Save Inventory")
-    print("6. Exit")
+    print("6. Import Products from CSV")
+    print("7. Exit")
     print("----------------------------")
 
 
@@ -129,7 +136,7 @@ def main() -> None:
             product_type = read_product_type()
             product_id = input("Product ID: ").strip()
             name = input("Product Name: ").strip()
-            price = read_number("Price: ", float)
+            price = get_positive_float("Price: ")
             stock = read_number("Stock Quantity: ", int)
             supplier = read_supplier(inventory)
             weight = 0.0
@@ -183,6 +190,12 @@ def main() -> None:
                 print(f"Inventory saved successfully to {INVENTORY_FILE}.")
 
         elif choice == "6":
+            print("Import Products from CSV")
+            path = input("CSV file path (press Enter for products.csv): ").strip()
+            supplier = read_supplier(inventory)
+            load_products(path or "products.csv", inventory, supplier)
+
+        elif choice == "7":
             print("Saving inventory before exit...")
             if save_inventory(inventory):
                 print("Inventory saved successfully.")
