@@ -9,9 +9,9 @@ from digital_product import DigitalProduct
 from discount_strategy import (BulkDiscount, DiscountStrategy, NoDiscount,
                                PercentageDiscount)
 from order import Order
+from student_discount import StudentDiscount
 from supplier import Supplier
-from tests.helpers import find_method, parse_module
-
+from tests.helpers import find_method, parse_module, read_source
 
 def make_order(order_id: str = "O1", discount: DiscountStrategy | None = None) -> Order:
     """An order whose lines add up to exactly 250."""
@@ -93,6 +93,22 @@ class TestOrderUsesStrategy(unittest.TestCase):
         self.assertNotIn("PercentageDiscount", names)
         self.assertNotIn("BulkDiscount", names)
 
+class TestExtendingWithoutModifying(unittest.TestCase):
+    def test_student_discount_takes_five_percent_off(self) -> None:
+        self.assertEqual(StudentDiscount().apply(250.0), 237.5)
+        self.assertEqual(StudentDiscount().apply(0.0), 0.0)
 
+    def test_student_discount_is_a_discount_strategy(self) -> None:
+        self.assertIsInstance(StudentDiscount(), DiscountStrategy)
+
+    def test_order_accepts_new_strategy_unchanged(self) -> None:
+        order = make_order(discount=StudentDiscount())
+        self.assertEqual(order.calculate_total(), 237.5)
+        order.set_discount(NoDiscount())
+        self.assertEqual(order.calculate_total(), 250.0)
+
+    def test_order_source_never_mentions_student_discount(self) -> None:
+        self.assertNotIn("Student", read_source("order"))
+        
 if __name__ == "__main__":
     unittest.main()
