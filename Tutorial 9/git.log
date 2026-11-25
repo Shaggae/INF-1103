@@ -1,0 +1,35 @@
+commit b970bef2d4af51f7475981935db6c24ea48cc2ce (HEAD -> main, origin/main)
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Oct 30 17:33:08 2026 +0800
+
+    Added .gitignore
+
+commit 47a11732ac1f20aec070a926eeab73490160a28d
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Oct 30 17:30:48 2026 +0800
+
+    Add tests and sample inventory.json containing physical and digital products
+
+commit b4256af4db58dbb6937c1097ae763d681e7d4488
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Oct 30 17:29:11 2026 +0800
+
+    Make Product abstract and require get_fulfilment_info in subclasses
+
+commit 5c2abd888e3df839d8e58b1e75b5e952a9494d5d
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Oct 30 17:25:22 2026 +0800
+
+    Integrate physical and digital products into the system with typed JSON persistence
+
+commit 6f59a47c32297bb294ddf4957962f1b3efc321b8
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Oct 30 17:12:44 2026 +0800
+
+    Add CanBeShipped interface and implement it in PhysicalProduct
+
+commit 6b962a7bb91bdc170f9ce34a081279b4096f2030
+Author: Shaggae <t.umathorn@gmail.com>
+Date:   Fri Oct 30 17:09:46 2026 +0800
+
+    Add PhysicalProduct and DigitalProduct subclasses overriding display_information
