@@ -2,10 +2,7 @@ import json
 import os
 from typing import Callable, TypeVar
 
-from product import Product
-from physical_product import PhysicalProduct
-from digital_product import DigitalProduct
-from product_factory import product_from_dict
+from product_factory import ProductFactory, product_from_dict
 from supplier import Supplier
 from inventory import Inventory
 
@@ -92,14 +89,15 @@ def read_supplier(inventory: Inventory) -> Supplier:
             print(f"Invalid supplier: {err}")
 
 def read_product_type() -> str:
-    """Prompt until the user picks 1 (physical) or 2 (digital)."""
+    """Prompt until the user picks a type. Returns "physical" or "digital"."""
+    types = {"1": "physical", "2": "digital"}
     while True:
         print("Product Type:")
         print("1. Physical Product")
         print("2. Digital Product")
         choice = input("Select type: ").strip()
-        if choice in ("1", "2"):
-            return choice
+        if choice in types:
+            return types[choice]
         print("Invalid type. Please enter 1 or 2.")
 
 def show_menu() -> None:
@@ -134,15 +132,15 @@ def main() -> None:
             price = read_number("Price: ", float)
             stock = read_number("Stock Quantity: ", int)
             supplier = read_supplier(inventory)
-            new_product: Product  # either subclass is fine: both are Products
-            if product_type == "1":
+            weight = 0.0
+            size = 0.0
+            if product_type == "physical":
                 weight = read_number("Weight (kg): ", float)
-                new_product = PhysicalProduct(product_id, name, price, stock,
-                                              supplier, weight)
             else:
                 size = read_number("Download Size (MB): ", float)
-                new_product = DigitalProduct(product_id, name, price, stock,
-                                             supplier, size)
+            new_product = ProductFactory.create(
+                product_type, product_id, name, price, stock, supplier,
+                weight=weight, download_size=size)
             if inventory.add_product(new_product):
                 print("Product added successfully!")
             else:
