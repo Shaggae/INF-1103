@@ -138,13 +138,17 @@ def main() -> None:
                 weight = read_number("Weight (kg): ", float)
             else:
                 size = read_number("Download Size (MB): ", float)
-            new_product = ProductFactory.create(
-                product_type, product_id, name, price, stock, supplier,
-                weight=weight, download_size=size)
-            if inventory.add_product(new_product):
-                print("Product added successfully!")
+            try:
+                new_product = ProductFactory.create(
+                    product_type, product_id, name, price, stock, supplier,
+                    weight=weight, download_size=size)
+            except ValueError as err:
+                print(f"Could not add product: {err}")
             else:
-                print("A product with that ID already exists.")
+                if inventory.add_product(new_product):
+                    print("Product added successfully!")
+                else:
+                    print("A product with that ID already exists.")
 
         elif choice == "3":
             print("Update Stock")
